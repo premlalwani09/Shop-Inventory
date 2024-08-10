@@ -1,7 +1,6 @@
 const Bill = require('../models/bill');
 const Item = require('../models/item');
 
-// Create a Bill with Auto-Generated Item IDs
 exports.createBill = async (req, res) => {
   try {
     const { items } = req.body;
@@ -10,17 +9,16 @@ exports.createBill = async (req, res) => {
     for (const billItem of items) {
       let item = await Item.findById(billItem.item);
 
-      // If item doesn't exist, create it
       if (!item) {
         item = new Item({
-          name: billItem.name, // Assuming you pass item name in request
-          price: billItem.price, // Assuming you pass item price in request
-          quantity: billItem.quantity // Initial quantity for the item
+          name: billItem.name, 
+          price: billItem.price, 
+          quantity: billItem.quantity 
         });
         await item.save();
       }
 
-      // Check if sufficient quantity is available
+      
       if (item.quantity < billItem.quantity) {
         return res.status(400).json({ error: 'Insufficient stock' });
       }
@@ -29,7 +27,7 @@ exports.createBill = async (req, res) => {
       item.quantity -= billItem.quantity;
       await item.save();
 
-      // Replace item reference with the newly created/updated item ID
+      
       billItem.item = item._id;
     }
 
