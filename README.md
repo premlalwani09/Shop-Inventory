@@ -21,8 +21,8 @@ This project is a backend system designed to manage inventory and sales for a sm
 1. **Clone the Repository:**
 
    ```bash
-   git clone <repository-url>
-   cd shop-inventory-system
+   git clone https://github.com/premlalwani09/Shop-Inventory.git
+   cd Shop-Inventory
 
 
 2. **Install Dependencies:**
